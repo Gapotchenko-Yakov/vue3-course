@@ -2,27 +2,31 @@
     <form @submit.prevent>
         <h4>Создание поста</h4>
         <input
-        v-model="post.title"
-        class="input"
-        type="text"
-        placeholder="Название"
+            v-model="post.title"
+            class="input"
+            type="text"
+            placeholder="Название"
         >
         <input
-        v-model="post.body"
-        class="input"
-        type="text"
-        placeholder="Описание"
+            v-model="post.body"
+            class="input"
+            type="text"
+            placeholder="Описание"
         >
-        <button
-        class="btn"
-        @click="createPost"
+        <my-button
+            style="align-self: flex-end; margin-top: 15px;"
+            @click="createPost"
         >
         Создать
-        </button>
+        </my-button>
     </form>
 </template>
 <script>
+import MyButton from '@/components/UI/MyButton.vue';
 export default {
+    components:{
+        MyButton,
+    },
     data(){
         return {
             post:{
@@ -34,7 +38,6 @@ export default {
     methods: {
         createPost(){
             this.post.id = Date.now();
-            // this.posts.push(newPost);
             this.$emit('create', this.post);
             this.title = '';
             this.body = '';
@@ -52,13 +55,5 @@ form {
     border: 1px solid teal;
     padding: 10px 15px;
     margin-top: 15px;
-}
-.btn {
-    margin-top: 15px;
-    align-self: flex-end;
-    padding: 10px 15px;
-    background: none;
-    color: teal;
-    border: 1px solid teal;
 }
 </style>
