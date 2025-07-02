@@ -1,15 +1,17 @@
 <template>
 <div class="app">
-    <form>
+    <form @submit.prevent>
         <h4>Создание поста</h4>
         <input
         v-bind:value="title"
+        @input="title = $event.target.value"
         class="input"
         type="text"
         placeholder="Название"
         >
         <input
         v-bind:value="body"
+        @input="body = $event.target.value"
         class="input"
         type="text"
         placeholder="Описание"
@@ -35,6 +37,18 @@ export default {
             body: '',
         }
     },
+    methods: {
+        createPost(){
+            const newPost = {
+                id: new Date(),
+                title: this.title,
+                body: this.body,
+            }
+            this.posts.push(newPost);
+            this.title = '';
+            this.body = '';
+        }
+    }
 }
 </script>
 <style>
