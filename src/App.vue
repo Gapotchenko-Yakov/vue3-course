@@ -1,22 +1,22 @@
 <template>
 <div>
-    <div class="post">
-        <div><strong>Название:</strong> Пост о Javascript</div>
-        <div><strong>Описание:</strong> Javascript - универсальный язык программирования</div>
-    </div>
-        <div class="post">
-        <div><strong>Название:</strong> Пост о Javascript</div>
-        <div><strong>Описание:</strong> Javascript - универсальный язык программирования</div>
-    </div>
-        <div class="post">
-        <div><strong>Название:</strong> Пост о Javascript</div>
-        <div><strong>Описание:</strong> Javascript - универсальный язык программирования</div>
+    <div class="post" v-for="post in posts">
+        <div><strong>Название:</strong> {{ post.title }}</div>
+        <div><strong>Описание:</strong> {{ post.body }}</div>
     </div>
 </div>
 </template>
 <script>
 export default {
-    
+    data(){
+        return {
+            posts: [
+                {id: 1, title: 'Javascript', body: 'Описание поста'},
+                {id: 2, title: 'Javascript', body: 'Описание поста 1'},
+                {id: 3, title: 'Javascript', body: 'Описание поста 2'},
+            ]
+        }
+    }
 }
 </script>
 <style>
