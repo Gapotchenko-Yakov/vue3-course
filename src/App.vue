@@ -24,16 +24,6 @@ export default {
         }
     },
     methods: {
-        createPost(){
-            const newPost = {
-                id: new Date(),
-                title: this.title,
-                body: this.body,
-            }
-            this.posts.push(newPost);
-            this.title = '';
-            this.body = '';
-        }
     }
 }
 </script>
