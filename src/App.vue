@@ -18,6 +18,7 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
 import PostForm from './components/PostForm.vue';
 import PostList from './components/PostList.vue';
 
@@ -27,11 +28,7 @@ export default {
     },
     data(){
         return {
-            posts: [
-                {id: 1, title: 'Javascript', body: 'Описание поста'},
-                {id: 2, title: 'Javascript', body: 'Описание поста 1'},
-                {id: 3, title: 'Javascript', body: 'Описание поста 2'},
-            ],
+            posts: [],
             title: '',
             body: '',
             dialogVisible: false,
@@ -47,7 +44,25 @@ export default {
         },
         showDialog(){
             this.dialogVisible = true;
+        },
+        async fetchPosts(){
+            try {
+                setTimeout(async () => {
+                    const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+                        params:{
+                            _limit: 5
+                        }
+                    });
+                    this.posts = response.data;
+                }, 1000);
+
+            } catch (e) {
+                alert('Ошибка');
+            }
         }
+    },
+    mounted(){
+        this.fetchPosts();
     }
 }
 </script>
