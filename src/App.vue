@@ -29,6 +29,10 @@
     <div v-else>
         Идет загрузка
     </div>
+    <my-pagination
+        :totalPages="totalPages"
+        v-model:page="page"
+    />
 </div>
 </template>
 <script>
@@ -47,6 +51,9 @@ export default {
             isPostsLoading: false,
             selectedSort: '',
             searchQuery: '',
+            page: 1,
+            limit: 5,
+            totalPages: 0,
             sortOptions: [
                 {value: 'title', name: 'По названию'},
                 {value: 'body', name: 'По содержанию'},
@@ -68,17 +75,19 @@ export default {
         async fetchPosts(){
             try {
                 this.isPostsLoading = true;
-                setTimeout(async () => {
-                    const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
-                        params:{
-                            _limit: 5
-                        }
-                    });
-                    this.posts = response.data;
-                    this.isPostsLoading = false;
-                }, 1000);
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+                    params:{
+                        _page: this.page,
+                        _limit: this.limit,
+                    }
+                });
+                this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
+                console.log("🚀 ~ fetchPosts ~ totalPages:", this.totalPages)
+                this.posts = response.data;
             } catch (e) {
                 alert('Ошибка');
+            } finally {
+                this.isPostsLoading = false;
             }
         }
     },
