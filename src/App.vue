@@ -104,13 +104,11 @@ export default {
             return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
         }
     },
-    // watch:{
-    //     selectedSort(newValue){
-    //         this.posts.sort((post1, post2) => {
-    //             return post1[newValue]?.localeCompare(post2[newValue]);
-    //         })
-    //     }
-    // }
+    watch:{
+        page(){
+            this.fetchPosts();
+        }
+    }
 }
 </script>
 <style>
